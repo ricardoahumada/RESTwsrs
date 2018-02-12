@@ -1,0 +1,7 @@
+com\netmind\DAO\UsuarioDAO.class
+com\netmind\DAO\DAO.class
+com\netmind\modelos\StatusMessage.class
+com\netmind\DAO\UsuarioDAOImpl.class
+com\netmind\DAO\DAOFactory.class
+com\netmind\modelos\Usuario.class
+com\netmind\rest\JSONService.class

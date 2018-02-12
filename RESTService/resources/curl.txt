@@ -1,0 +1,5 @@
+curl http://localhost:8080/RESTService/api/users/
+curl http://localhost:8080/RESTService/api/users/4
+curl -X POST -H "Content-Type: application/json" -d "{\"uid\":24,\"nombre\":\"Joan\",\"apellido\":\"Perez\",\"email\":\"j@e.es\",\"password\":\"\"}" http://localhost:8080/RESTService/api/users/add
+curl -X PUT -H "Content-Type: application/json" -d "{\"nombre\":\"Joan\",\"apellido\":\"Perez\",\"email\":\"j@e.es\",\"password\":\"\"}" http://localhost:8080/RESTService/api/users/2
+curl -X DELETE http://localhost:8080/RESTService/api/users/4
