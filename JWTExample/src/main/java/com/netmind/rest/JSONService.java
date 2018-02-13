@@ -33,11 +33,11 @@ import org.jose4j.lang.JoseException;
 import com.netmind.modelos.StatusMessage;
 import com.netmind.modelos.Usuario;
 
-@Path("/json")
+@Path("/authenticate")
 public class JSONService {
 	private static Logger logger = Logger.getLogger("JSONService");
-	static List<JsonWebKey> jwkList = null;
-	static List<Usuario> userList = null;
+	private static List<JsonWebKey> jwkList = null;
+	private static List<Usuario> userList = null;
 
 	static {
 		logger.info("Inside static initializer...");
@@ -71,7 +71,7 @@ public class JSONService {
 		return Response.ok().entity("{\"result\":1}").build();
 	}
 	
-	@Path("/authenticate")
+	@Path("")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticateCredentials(@HeaderParam("username") String username,
@@ -141,31 +141,8 @@ public class JSONService {
 		return Response.status(200).entity(jwt).build();
 	}
 
-	@GET
-	@Path("/owndata")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOwnData(@HeaderParam("token") String token) {
-		logger.log(Level.INFO, "token:" + token);
-		String userEmail = "";
-
-		userEmail = this.getUserEmailFromToken(token);
-		logger.log(Level.INFO, "userEmail:" + userEmail);
-
-		if (userEmail == null) {
-			StatusMessage statusMessage = new StatusMessage();
-			statusMessage.setStatus(Status.FORBIDDEN.getStatusCode());
-			statusMessage.setMessage("Access Denied for this functionality !!!");
-			return Response.status(Status.FORBIDDEN.getStatusCode()).entity(statusMessage).build();
-		}
-
-		Usuario user;
-		user = getUsuarioByMail(userEmail);
-
-		return Response.status(200).entity(user).build();
-	}
-	
 	/*AUXILIARS*/
-	private Usuario findUsuario(String username, String password) {
+	protected Usuario findUsuario(String username, String password) {
 		Usuario foundUser=null;
 		for (Usuario user : userList) {
 			if(user.getEmail().equals(username) && user.getPass().equals(password) ) {
@@ -176,7 +153,7 @@ public class JSONService {
 		return foundUser;
 	}
 	
-	private Usuario getUsuarioByMail(String userEmail) {
+	protected Usuario getUsuarioByMail(String userEmail) {
 		Usuario foundUser=null;
 		for (Usuario user : userList) {
 			if(user.getEmail().equals(userEmail)) {
@@ -188,7 +165,7 @@ public class JSONService {
 	}
 
 	/* AUX */
-	private String getUserEmailFromToken(String token) {
+	protected String getUserEmailFromToken(String token) {
 		if (token == null)
 			return null;
 
