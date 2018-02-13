@@ -50,11 +50,22 @@
 		</init-param>
 
 	</filter>
+	<filter>
+		<description>
+		</description>
+		<display-name>TokenFilter</display-name>
+		<filter-name>TokenFilter</filter-name>
+		<filter-class>com.netmind.filters.TokenFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
 		<!-- CORS Filter mapping -->
 		<filter-name>CORS</filter-name>
 		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>TokenFilter</filter-name>
+		<url-pattern>/TokenFilter</url-pattern>
 	</filter-mapping>
 
 </web-app>
